@@ -1,0 +1,52 @@
+{
+ "silk": [
+  ["silk01-a.jpg", "silk01-b.jpg", "silk01-c.jpg", "silk01-d.jpg"],
+  ["silk02-a.jpg", "silk02-b.jpg", "silk02-c.jpg", "silk02-d.jpg"],
+  ["silk03-a.jpg", "silk03-b.jpg", "silk03-c.jpg", "silk03-d.jpg"],
+  ["silk04-a.jpg", "silk04-b.jpg", "silk04-c.jpg", "silk04-d.jpg"],
+  ["silk05-a.jpg", "silk05-b.jpg", "silk05-c.jpg", "silk05-d.jpg"],
+  ["silk06-a.jpg", "silk06-b.jpg", "silk06-c.jpg", "silk06-d.jpg"],
+  ["silk07-a.jpg", "silk07-b.jpg", "silk07-c.jpg", "silk07-d.jpg"],
+  ["silk08-a.jpg", "silk08-b.jpg", "silk08-c.jpg", "silk08-d.jpg"]
+ ],
+ "summer": [
+  ["pk27-a.jpg", "pk27-b.jpg", "pk27-c.jpg", "pk27-d.jpg"],
+  ["pk09-a.jpg", "pk09-b.jpg", "pk09-c.jpg", "pk09-d.jpg"],
+  ["pk17-a.jpg", "pk17-b.jpg", "pk17-c.jpg", "pk17-d.jpg"],
+  ["pk18-a.jpg", "pk18-b.jpg", "pk18-c.jpg", "pk18-d.jpg"],
+  ["summer05-a.jpg", "summer05-b.jpg", "summer05-c.jpg", "summer05-d.jpg"],
+  ["summer06-a.jpg", "summer06-b.jpg", "summer06-c.jpg", "summer06-d.jpg"],
+  ["summer07-a.jpg", "summer07-b.jpg", "summer07-c.jpg", "summer07-d.jpg"],
+  ["summer08-a.jpg", "summer08-b.jpg", "summer08-c.jpg", "summer08-d.jpg"]
+ ],
+ "casual": [
+  ["casual01-a.jpg", "casual01-b.jpg", "casual01-c.jpg", "casual01-d.jpg"],
+  ["casual02-a.jpg", "casual02-b.jpg", "casual02-c.jpg", "casual02-d.jpg"],
+  ["casual03-a.jpg", "casual03-b.jpg", "casual03-c.jpg", "casual03-d.jpg"],
+  ["casual04-a.jpg", "casual04-b.jpg", "casual04-c.jpg", "casual04-d.jpg"],
+  ["casual05-a.jpg", "casual05-b.jpg", "casual05-c.jpg", "casual05-d.jpg"],
+  ["casual06-a.jpg", "casual06-b.jpg", "casual06-c.jpg", "casual06-d.jpg"],
+  ["casual07-a.jpg", "casual07-b.jpg", "casual07-c.jpg", "casual07-d.jpg"],
+  ["casual08-a.jpg", "casual08-b.jpg", "casual08-c.jpg", "casual08-d.jpg"]
+ ],
+ "printed": [
+  ["pk30-a.jpg", "pk30-b.jpg", "pk30-c.jpg", "pk30-d.jpg"],
+  ["pk31-a.jpg", "pk31-b.jpg", "pk31-c.jpg", "pk31-d.jpg"],
+  ["pk37-a.jpg", "pk37-b.jpg", "pk37-c.jpg", "pk37-d.jpg"],
+  ["pk38-a.jpg", "pk38-b.jpg", "pk38-c.jpg", "pk38-d.jpg"],
+  ["printed05-a.jpg", "printed05-b.jpg", "printed05-c.jpg", "printed05-d.jpg"],
+  ["printed06-a.jpg", "printed06-b.jpg", "printed06-c.jpg", "printed06-d.jpg"],
+  ["printed07-a.jpg", "printed07-b.jpg", "printed07-c.jpg", "printed07-d.jpg"],
+  ["printed08-a.jpg", "printed08-b.jpg", "printed08-c.jpg", "printed08-d.jpg"]
+ ],
+ "embroidery": [
+  ["embroidery01-a.jpg", "embroidery01-b.jpg", "embroidery01-c.jpg", "embroidery01-d.jpg"],
+  ["embroidery02-a.jpg", "embroidery02-b.jpg", "embroidery02-c.jpg", "embroidery02-d.jpg"],
+  ["embroidery03-a.jpg", "embroidery03-b.jpg", "embroidery03-c.jpg", "embroidery03-d.jpg"],
+  ["embroidery04-a.jpg", "embroidery04-b.jpg", "embroidery04-c.jpg", "embroidery04-d.jpg"],
+  ["embroidery05-a.jpg", "embroidery05-b.jpg", "embroidery05-c.jpg", "embroidery05-d.jpg"],
+  ["embroidery06-a.jpg", "embroidery06-b.jpg", "embroidery06-c.jpg", "embroidery06-d.jpg"],
+  ["embroidery07-a.jpg", "embroidery07-b.jpg", "embroidery07-c.jpg", "embroidery07-d.jpg"],
+  ["embroidery08-a.jpg", "embroidery08-b.jpg", "embroidery08-c.jpg", "embroidery08-d.jpg"]
+ ]
+}

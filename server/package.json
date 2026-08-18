@@ -1,0 +1,27 @@
+{
+  "name": "saba-fashion-api",
+  "private": true,
+  "version": "1.0.0",
+  "description": "REST API for the Saba Fashion e-commerce storefront.",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "seed": "node src/seed/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "latest",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "jsonwebtoken": "latest",
+    "mongoose": "latest",
+    "multer": "latest",
+    "nodemailer": "^9.0.5",
+    "sharp": "^0.35.3",
+    "stripe": "latest"
+  },
+  "devDependencies": {
+    "nodemon": "latest"
+  }
+}
