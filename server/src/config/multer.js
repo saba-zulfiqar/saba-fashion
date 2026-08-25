@@ -6,11 +6,13 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-const UPLOAD_DIR = path.join(__dirname, "../../uploads/products");
+// Vercel's filesystem is read-only except for /tmp, so use /tmp there.
+const UPLOAD_DIR = process.env.VERCEL
+  ? "/tmp/uploads/products"
+  : path.join(__dirname, "../../uploads/products");
 
 // Make sure the upload directory exists before multer tries to write to it.
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, UPLOAD_DIR),
   // Unique, collision-safe filename: timestamp + random suffix + original extension.
@@ -21,18 +23,15 @@ const storage = multer.diskStorage({
     cb(null, `${base}-${unique}${ext}`);
   },
 });
-
 const fileFilter = (_req, file, cb) => {
   const allowed = /jpeg|jpg|png|webp/;
   const ok = allowed.test(file.mimetype);
   if (!ok) return cb(new Error("Only JPEG, PNG and WEBP images are allowed."));
   cb(null, true);
 };
-
 const upload = multer({
   storage,
   fileFilter,
   limits: { fileSize: 8 * 1024 * 1024, files: 4 }, // max 8 MB per file, max 4 files
 });
-
 module.exports = { upload, UPLOAD_DIR };
