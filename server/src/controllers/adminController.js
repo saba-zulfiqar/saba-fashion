@@ -5,21 +5,24 @@ const Category = require("../models/Category");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const User = require("../models/User");
-const { UPLOAD_DIR } = require("../config/multer");
-const fs = require("fs");
-const path = require("path");
+const { cloudinary } = require("../config/multer");
 
-/** Map a set of multer files to public URLs (e.g. /uploads/products/abc.jpg). */
+/** Map a set of Cloudinary-uploaded files to their public URLs. */
 function toUrls(files = []) {
-  return files.map((f) => `/uploads/products/${f.filename}`);
+  // multer-storage-cloudinary puts the hosted URL on file.path
+  return files.map((f) => f.path);
 }
 
-/** Delete stored files when a product is replaced or removed. */
+/** Delete stored images from Cloudinary when a product is replaced or removed. */
 function removeFiles(urls = []) {
   urls.forEach((url) => {
-    if (!url.startsWith("/uploads/")) return;
-    const filePath = path.join(UPLOAD_DIR, path.basename(url));
-    fs.unlink(filePath, () => {});
+    if (!url || !url.includes("cloudinary.com")) return;
+    // Extract the public_id (folder/filename without extension) from the URL.
+    const parts = url.split("/upload/")[1];
+    if (!parts) return;
+    const withoutVersion = parts.replace(/^v\d+\//, "");
+    const publicId = withoutVersion.replace(/\.[^/.]+$/, "");
+    cloudinary.uploader.destroy(publicId, () => {});
   });
 }
 
@@ -133,7 +136,7 @@ exports.updateProduct = async (req, res, next) => {
           message: "Replacement images must include exactly 4 files.",
         });
       }
-      removeFiles(product.images); // free disk space for replaced photos
+      removeFiles(product.images); // free up old Cloudinary images
       update.images = toUrls(req.files);
     }
 
