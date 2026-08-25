@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "bcryptjs": "latest",
+    "cloudinary": "^1.41.3",
     "cors": "latest",
     "dotenv": "latest",
     "express": "latest",
     "jsonwebtoken": "latest",
     "mongoose": "latest",
     "multer": "latest",
+    "multer-storage-cloudinary": "^4.0.0",
     "nodemailer": "^9.0.5",
     "sharp": "^0.35.3",
     "stripe": "latest"
