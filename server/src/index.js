@@ -1,13 +1,11 @@
 // Saba Fashion API — Express server.
 // Entry point: loads env, connects to MongoDB, mounts routes and starts listening.
 require("dotenv").config();
-
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const connectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middleware/errorHandler");
-
 const authRoutes = require("./routes/authRoutes");
 const catalogRoutes = require("./routes/catalogRoutes");
 const cartRoutes = require("./routes/cartRoutes");
@@ -20,11 +18,6 @@ const contactRoutes = require("./routes/contactRoutes");
 const app = express();
 
 // CORS for the Vite dev server / production frontend.
-// CLIENT_ORIGIN can hold a comma-separated list of explicit origins
-// (e.g. "http://localhost:5173,http://localhost:5174,https://shop.example.com").
-// Explicit origins (never "*") are required because credentials: true is set
-// so cookie/token auth works; the browser only echoes the Access-Control-Allow
-// -Origin header for origins that actually appear here.
 const CLIENT_ORIGINS = (process.env.CLIENT_ORIGIN || "http://localhost:5173")
   .split(",")
   .map((origin) => origin.trim())
@@ -33,8 +26,6 @@ const CLIENT_ORIGINS = (process.env.CLIENT_ORIGIN || "http://localhost:5173")
 app.use(
   cors({
     origin(origin, callback) {
-      // Allow non-browser requests (curl, health checks, same-origin) and any
-      // origin explicitly listed in CLIENT_ORIGIN.
       if (!origin || CLIENT_ORIGINS.includes(origin)) return callback(null, true);
       return callback(null, false);
     },
@@ -51,11 +42,15 @@ app.use(
 app.use(express.json({ limit: "2mb" }));
 app.use(express.urlencoded({ extended: true }));
 
-// Serve uploaded product images statically. No-cache so the browser always
-// picks up updated product photography rather than serving stale bytes.
+// Serve uploaded product images statically.
+// On Vercel the writable dir is /tmp; locally it's the real uploads folder.
+const UPLOADS_DIR = process.env.VERCEL
+  ? "/tmp/uploads"
+  : path.join(__dirname, "../uploads");
+
 app.use(
   "/uploads",
-  express.static(path.join(__dirname, "../uploads"), {
+  express.static(UPLOADS_DIR, {
     etag: true,
     lastModified: true,
     setHeaders: (res) => res.setHeader("Cache-Control", "public, no-cache"),
@@ -79,8 +74,16 @@ app.use("/api/contact", contactRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-// Start the server after the database is ready.
-const PORT = process.env.PORT || 5000;
-connectDB().then(() => {
+// Connect to the database on every cold start (safe to call repeatedly;
+// most drivers cache the connection internally).
+connectDB().catch((err) => console.error("MongoDB connection error:", err));
+
+// On Vercel, the platform imports and calls this exported app directly —
+// it must NOT call app.listen(), since there's no long-running process.
+// Locally (node index.js), start a normal server.
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => console.log(`Saba Fashion API running on http://localhost:${PORT}`));
-});
+}
+
+module.exports = app;

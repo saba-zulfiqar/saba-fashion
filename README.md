@@ -75,10 +75,3 @@ npm run dev
 Open `http://localhost:5173` in your browser.
 
 ---
-
-## Credentials & Testing Accounts
-
-| Portal | Route | Email | Password | Role |
-| ------ | ----- | ----- | -------- | ---- |
-| **Customer** | `/account` | `customer@sabafashion.com` | `Customer@1234` | Customer |
-| **Admin** | `/admin/login` | `admin@sabafashion.com` | `Admin@1234` | Admin |

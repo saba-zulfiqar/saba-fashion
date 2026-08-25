@@ -1,24 +1,21 @@
 // Multer configuration for product image uploads.
-// Images are stored on disk under server/uploads/products so they can be
-// served by Express as static files. In production you can swap this for a
-// Cloudinary/S3 adapter while keeping the same controller interfaces.
+// Images are uploaded directly to Cloudinary (works on Vercel's read-only
+// filesystem) instead of being saved to local disk.
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
 
-const UPLOAD_DIR = path.join(__dirname, "../../uploads/products");
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-// Make sure the upload directory exists before multer tries to write to it.
-fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-
-const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, UPLOAD_DIR),
-  // Unique, collision-safe filename: timestamp + random suffix + original extension.
-  filename: (_req, file, cb) => {
-    const ext = path.extname(file.originalname).toLowerCase() || ".jpg";
-    const base = path.basename(file.originalname, ext).replace(/[^a-z0-9]+/gi, "-").slice(0, 30);
-    const unique = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    cb(null, `${base}-${unique}${ext}`);
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "saba-fashion/products",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
   },
 });
 
@@ -35,4 +32,4 @@ const upload = multer({
   limits: { fileSize: 8 * 1024 * 1024, files: 4 }, // max 8 MB per file, max 4 files
 });
 
-module.exports = { upload, UPLOAD_DIR };
+module.exports = { upload, cloudinary };
